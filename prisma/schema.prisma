@@ -14,18 +14,77 @@ datasource db {
 }
 
 model Client {
-  id       String    @id @default(cuid())
+  id       String     @id @default(cuid())
   name     String
   email    String
   siret    String
   Contacts Contact[]
+  Commande Commande[]
 }
 
 model Contact {
-  id       String  @id @default(cuid())
+  id       String     @id @default(cuid())
   name     String
   email    String
   phone    String
-  Client   Client? @relation(fields: [clientId], references: [id])
+  Client   Client?    @relation(fields: [clientId], references: [id])
   clientId String?
+  Commande Commande[]
+}
+
+model Commande {
+  id                     String                   @id @default(cuid())
+  name                   String
+  Commande_Date          Commande_Date?           @relation(fields: [commande_DateId], references: [id])
+  Chauffeur              Chauffeur?               @relation(fields: [chauffeurId], references: [id])
+  Vehicule               Vehicule?                @relation(fields: [vehiculeId], references: [id])
+  Contact                Contact?                 @relation(fields: [contactId], references: [id])
+  Client                 Client?                  @relation(fields: [clientId], references: [id])
+  Commande_Service_Price Commande_Service_Price[]
+  chauffeurId            String?
+  vehiculeId             String?
+  contactId              String?
+  commande_DateId        String?
+  clientId               String?
+}
+
+model Commande_Service_Price {
+  id         String    @id @default(cuid())
+  price      Float
+  Service    Service   @relation(fields: [serviceId], references: [id])
+  serviceId  String
+  Commande   Commande? @relation(fields: [commandeId], references: [id])
+  commandeId String?
+}
+
+model Commande_Date {
+  id       String     @id @default(cuid())
+  debut    DateTime
+  fin      DateTime
+  Commande Commande[]
+}
+
+model Vehicule {
+  id       String     @id @default(cuid())
+  name     String
+  Commande Commande[]
+}
+
+model Chauffeur {
+  id       String     @id @default(cuid())
+  name     String
+  Commande Commande[]
+}
+
+model Service {
+  id                     String                   @id @default(cuid())
+  name                   String
+  Commande_Service_Price Commande_Service_Price[]
+}
+
+model User {
+  id       String @id @default(cuid())
+  email    String
+  password String
+  role     String @default("admin")
 }

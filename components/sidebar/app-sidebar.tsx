@@ -1,12 +1,12 @@
 "use client";
 
 import {
-	AudioWaveform,
-	Command,
 	Database,
+	FileText,
 	Frame,
 	GalleryVerticalEnd,
 	HomeIcon,
+	Plus,
 } from "lucide-react";
 import * as React from "react";
 
@@ -18,6 +18,7 @@ import {
 	SidebarFooter,
 	SidebarRail,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 // This is sample data.
 const data = {
@@ -28,27 +29,28 @@ const data = {
 	},
 	teams: [
 		{
-			name: "Acme Inc",
+			name: "RTS",
 			logo: GalleryVerticalEnd,
 			plan: "Enterprise",
-		},
-		{
-			name: "Acme Corp.",
-			logo: AudioWaveform,
-			plan: "Startup",
-		},
-		{
-			name: "Evil Corp.",
-			logo: Command,
-			plan: "Free",
 		},
 	],
 	navMain: [
 		{
-			title: "Accueil ",
+			title: "Accueil",
 			url: "/",
 			icon: HomeIcon,
 			isActive: true,
+		},
+		{
+			title: "Devis",
+			url: "/devis/new",
+			icon: FileText,
+			isActive: true,
+			action: (
+				<Link href="/devis/new">
+					<Plus />
+				</Link>
+			),
 		},
 		{
 			title: "Base de Données",

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import { ChevronRight, Plus, type LucideIcon } from "lucide-react";
 
 import {
 	Collapsible,
@@ -11,6 +11,7 @@ import {
 	SidebarGroup,
 	SidebarGroupLabel,
 	SidebarMenu,
+	SidebarMenuAction,
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarMenuSub,
@@ -27,6 +28,7 @@ export function NavMain({
 		url: string;
 		icon?: LucideIcon;
 		isActive?: boolean;
+		action?: string | React.ReactNode;
 		items?: {
 			title: string;
 			url: string;
@@ -35,7 +37,7 @@ export function NavMain({
 }) {
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Platform</SidebarGroupLabel>
+			<SidebarGroupLabel>Gestion</SidebarGroupLabel>
 			<SidebarMenu>
 				{items.map((item) =>
 					item.items ? (
@@ -78,6 +80,13 @@ export function NavMain({
 								{item.icon && <item.icon />}
 								<Link href={item.url}>{item.title}</Link>
 							</SidebarMenuButton>
+							{item.action && (
+								<SidebarMenuAction asChild>
+									<Link href={item.url}>
+										<Plus />
+									</Link>
+								</SidebarMenuAction>
+							)}
 						</SidebarMenuItem>
 					)
 				)}
