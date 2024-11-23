@@ -65,9 +65,13 @@ model Commande_Date {
 }
 
 model Vehicule {
-  id       String     @id @default(cuid())
-  name     String
-  Commande Commande[]
+  id              String     @id @default(cuid())
+  immatriculation String
+  marque          String?
+  modele          String?
+  kilometrage     Int?
+  description     String?
+  Commande        Commande[]
 }
 
 model Chauffeur {

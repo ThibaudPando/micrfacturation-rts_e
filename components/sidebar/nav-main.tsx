@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, Plus, type LucideIcon } from "lucide-react";
+import { ChevronRight, type LucideIcon } from "lucide-react";
 
 import {
 	Collapsible,
@@ -82,9 +82,7 @@ export function NavMain({
 							</SidebarMenuButton>
 							{item.action && (
 								<SidebarMenuAction asChild>
-									<Link href={item.url}>
-										<Plus />
-									</Link>
+									{item.action}
 								</SidebarMenuAction>
 							)}
 						</SidebarMenuItem>

@@ -21,8 +21,8 @@
 		],
 		"paths": {
 			"@/*": ["./*"],
-			"@/actions/*": ["./app/actions/*"],
-			"@/api/*": ["app/(_server_)/api/*"]
+			"@/actions/*": ["actions/*"],
+			"@/api/*": ["app/api/*"]
 		},
 		"target": "ES2017"
 	},

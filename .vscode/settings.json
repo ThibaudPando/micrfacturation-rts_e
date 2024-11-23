@@ -1,0 +1,27 @@
+{
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+		".next": true,
+		".vscode": true,
+		"**/.next": true,
+		"**/**.config.cjs": true,
+		"**/**.config.js": true,
+		"**/**.config.json": true,
+		"**/**.config.mjs": true,
+		"**/**.config.toml": true,
+		"**/**.config.yaml": true,
+		"**/**.config.yml": true,
+		"**/**.d.ts": true,
+		"**/config.ts": true,
+		"**/favicon.ico": true,
+		"bun.lockb": true,
+		"node_modules": true,
+		"public": true
+	},
+	"explorerExclude.backup": {}
+}

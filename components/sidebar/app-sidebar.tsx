@@ -1,23 +1,28 @@
 "use client";
 
-import {
-	Database,
-	FileText,
-	Frame,
-	GalleryVerticalEnd,
-	HomeIcon,
-	Plus,
-} from "lucide-react";
+import
+	{
+		Calendar,
+		FileText,
+		Frame,
+		GalleryVerticalEnd,
+		HomeIcon,
+		LucideFileBox,
+		Plus,
+		Truck,
+		Users2
+	} from "lucide-react";
 import * as React from "react";
 
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavUser } from "@/components/sidebar/nav-user";
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarFooter,
-	SidebarRail,
-} from "@/components/ui/sidebar";
+import
+	{
+		Sidebar,
+		SidebarContent,
+		SidebarFooter,
+		SidebarRail,
+	} from "@/components/ui/sidebar";
 import Link from "next/link";
 
 // This is sample data.
@@ -43,7 +48,7 @@ const data = {
 		},
 		{
 			title: "Devis",
-			url: "/devis/new",
+			url: "/devis",
 			icon: FileText,
 			isActive: true,
 			action: (
@@ -53,15 +58,28 @@ const data = {
 			),
 		},
 		{
-			title: "Base de Données",
-			url: "/database",
-			icon: Database,
-			items: [
-				{
-					title: "Clients",
-					url: "/database/clients",
-				},
-			],
+			title: "Commande",
+			url: "/commande",
+			icon: LucideFileBox,
+			isActive: true,
+		},
+		{
+			title: "Clients",
+			url: "/clients",
+			icon: Users2,
+			isActive: true,
+		},
+		{
+			title: "Véhicules",
+			url: "/vehicules",
+			icon: Truck,
+			isActive: true,
+		},
+		{
+			title: "Calendrier",
+			url: "/calendar",
+			icon: Calendar,
+			isActive: true,
 		},
 	],
 	projects: [
