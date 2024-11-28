@@ -1,67 +1,63 @@
-'use client'
+"use client"
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import
-    {
-        ColumnDef,
-        ColumnFiltersState,
-        SortingState,
-        VisibilityState,
-        flexRender,
-        getCoreRowModel,
-        getFilteredRowModel,
-        getPaginationRowModel,
-        getSortedRowModel,
-        useReactTable,
-    } from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Plus } from 'lucide-react';
-import Link from 'next/link'; // Import added here
-import * as React from 'react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+// Import added here
+import * as React from "react"
+import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table"
+import { ChevronDown, MoreHorizontal, Plus } from "lucide-react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import
-    {
-        Dialog,
-        DialogContent,
-        DialogDescription,
-        DialogHeader,
-        DialogTitle,
-        DialogTrigger,
-    } from '@/components/ui/dialog';
-import
-    {
-        DropdownMenu,
-        DropdownMenuCheckboxItem,
-        DropdownMenuContent,
-        DropdownMenuItem,
-        DropdownMenuLabel,
-        DropdownMenuSeparator,
-        DropdownMenuTrigger,
-    } from '@/components/ui/dropdown-menu';
-import
-    {
-        Form,
-        FormControl,
-        FormDescription,
-        FormField,
-        FormItem,
-        FormLabel,
-        FormMessage,
-    } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import
-    {
-        Table,
-        TableBody,
-        TableCell,
-        TableHead,
-        TableHeader,
-        TableRow,
-    } from '@/components/ui/table';
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { DataTableHeaderButton } from "@/components/data-table-header-button"
 
 type Vehicule = {
   id: string
@@ -74,20 +70,20 @@ type Vehicule = {
 
 const data: Vehicule[] = [
   {
-    id: '1',
-    immatriculation: 'AB-123-CD',
-    marque: 'Renault',
-    modele: 'Clio',
+    id: "1",
+    immatriculation: "AB-123-CD",
+    marque: "Renault",
+    modele: "Clio",
     kilometrage: 50000,
-    description: 'Véhicule de service',
+    description: "Véhicule de service",
   },
   {
-    id: '2',
-    immatriculation: 'EF-456-GH',
-    marque: 'Peugeot',
-    modele: '308',
+    id: "2",
+    immatriculation: "EF-456-GH",
+    marque: "Peugeot",
+    modele: "308",
     kilometrage: 75000,
-    description: 'Véhicule commercial',
+    description: "Véhicule commercial",
   },
   // Ajoutez plus de données d'exemple si nécessaire
 ]
@@ -102,7 +98,7 @@ const formSchema = z.object({
 
 export const columns: ColumnDef<Vehicule>[] = [
   {
-    id: 'select',
+    id: "select",
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
@@ -121,72 +117,42 @@ export const columns: ColumnDef<Vehicule>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'immatriculation',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Immatriculation
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div>{row.getValue('immatriculation')}</div>,
+    accessorKey: "immatriculation",
+    header: ({ column }) => (
+      <DataTableHeaderButton column={column}>
+        Immatriculation
+      </DataTableHeaderButton>
+    ),
+    cell: ({ row }) => <div>{row.getValue("immatriculation")}</div>,
   },
   {
-    accessorKey: 'marque',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Marque
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div>{row.getValue('marque')}</div>,
+    accessorKey: "marque",
+    header: ({ column }) => (
+      <DataTableHeaderButton column={column}>Marque</DataTableHeaderButton>
+    ),
+    cell: ({ row }) => <div>{row.getValue("marque")}</div>,
   },
   {
-    accessorKey: 'modele',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Modèle
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div>{row.getValue('modele')}</div>,
+    accessorKey: "modele",
+    header: ({ column }) => (
+      <DataTableHeaderButton column={column}>Modèle</DataTableHeaderButton>
+    ),
+    cell: ({ row }) => <div>{row.getValue("modele")}</div>,
   },
   {
-    accessorKey: 'kilometrage',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Kilométrage
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div>{row.getValue('kilometrage')}</div>,
+    accessorKey: "kilometrage",
+    header: ({ column }) => (
+      <DataTableHeaderButton column={column}>Kilométrage</DataTableHeaderButton>
+    ),
+    cell: ({ row }) => <div>{row.getValue("kilometrage")}</div>,
   },
   {
-    accessorKey: 'description',
-    header: 'Description',
-    cell: ({ row }) => <div>{row.getValue('description')}</div>,
+    accessorKey: "description",
+    header: "Description",
+    cell: ({ row }) => <div>{row.getValue("description")}</div>,
   },
   {
-    id: 'actions',
+    id: "actions",
     cell: ({ row }) => {
       const vehicule = row.original
       return (
@@ -216,8 +182,11 @@ export const columns: ColumnDef<Vehicule>[] = [
 
 export function VehiculeDataTable() {
   const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  )
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
@@ -243,11 +212,11 @@ export function VehiculeDataTable() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      immatriculation: '',
-      marque: '',
-      modele: '',
+      immatriculation: "",
+      marque: "",
+      modele: "",
       kilometrage: 0,
-      description: '',
+      description: "",
     },
   })
 
@@ -262,9 +231,14 @@ export function VehiculeDataTable() {
       <div className="flex items-center py-4">
         <Input
           placeholder="Filtrer par immatriculation..."
-          value={(table.getColumn('immatriculation')?.getFilterValue() as string) ?? ''}
+          value={
+            (table.getColumn("immatriculation")?.getFilterValue() as string) ??
+            ""
+          }
           onChange={(event) =>
-            table.getColumn('immatriculation')?.setFilterValue(event.target.value)
+            table
+              .getColumn("immatriculation")
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -278,11 +252,15 @@ export function VehiculeDataTable() {
             <DialogHeader>
               <DialogTitle>Ajouter un véhicule</DialogTitle>
               <DialogDescription>
-                Remplissez les informations du véhicule ici. Cliquez sur sauvegarder quand vous avez terminé.
+                Remplissez les informations du véhicule ici. Cliquez sur
+                sauvegarder quand vous avez terminé.
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
                 <FormField
                   control={form.control}
                   name="immatriculation"
@@ -332,7 +310,13 @@ export function VehiculeDataTable() {
                     <FormItem>
                       <FormLabel>Kilométrage</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(parseInt(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -356,12 +340,6 @@ export function VehiculeDataTable() {
             </Form>
           </DialogContent>
         </Dialog>
-        <Link href="/vehicule-calendar" passHref> {/* Added Link component */}
-          <Button variant="outline" className="ml-2"> {/* Added calendar button */}
-            {/* Assuming you have a Calendar icon imported */}
-            <span>Voir le calendrier</span> {/* Added text for accessibility */}
-          </Button>
-        </Link> {/* Added closing tag for Link */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -414,7 +392,7 @@ export function VehiculeDataTable() {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -441,7 +419,7 @@ export function VehiculeDataTable() {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} sur{' '}
+          {table.getFilteredSelectedRowModel().rows.length} sur{" "}
           {table.getFilteredRowModel().rows.length} ligne(s) sélectionnée(s).
         </div>
         <div className="space-x-2">

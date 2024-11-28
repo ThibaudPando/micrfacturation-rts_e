@@ -1,8 +1,10 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
+
 import prisma from "@/lib/prisma"
 
-export async function clientAction(data: FormData) {
+export async function addClient(data: FormData) {
   const req = Object.fromEntries(data.entries()) as Record<string, string>
   // POST /database/clients 200 in 32ms
   // FormData {
@@ -35,5 +37,11 @@ export async function clientAction(data: FormData) {
       },
     },
   })
-  //   revalidatePath("/database/clients")
+  revalidatePath("/database/clients")
+}
+
+export async function getClients() {
+  return await prisma.client.findMany({
+    include: { Contacts: true, Commande: true },
+  })
 }
